@@ -121,7 +121,8 @@ class MitmProxy:
         """Run the server."""
         asyncio.run_coroutine_threadsafe(self.master.run(), self.event_loop)
         # wait for proxyserver to start
-        asyncio.run(self._wait_for_proxyserver())
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self._wait_for_proxyserver())
 
     @property
     def address(self) -> Address:
